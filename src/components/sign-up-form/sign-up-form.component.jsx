@@ -26,7 +26,7 @@ const SignUpForm = () => {
     const { name, value } = event.target;
     setInputFields({ ...inputFields, [name]: value });
   };
-  console.log(inputFields);
+  // console.log(inputFields);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,7 +52,7 @@ const SignUpForm = () => {
 
   return (
     <div className="sign-up-form-container">
-        <h2>don't have an account</h2>
+        <h2>Don't have an account</h2>
       <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
         <InputField

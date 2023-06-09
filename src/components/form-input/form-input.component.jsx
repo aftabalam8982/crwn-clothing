@@ -7,9 +7,9 @@ const InputField = ({ label, ...others }) => {
 
       {label && (
         <label
-          className={`${others.value.length ? "shrink" : ""} form-input-label`}
+          className={`${others && others.value &&others.value.length ? "shrink" : ""} form-input-label`}
         >
-          {label}{" "}
+          {label}
         </label>
       )}
     </div>

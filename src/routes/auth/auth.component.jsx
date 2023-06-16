@@ -9,7 +9,7 @@ import "./auth.styles.scss";
 const Authentication = () => {
   const logWithGoogleUser = async () => {
     const { user } = await signInWithGooglePopup();
-    const userDocRef = await CreateUserDocumentFromAuth(user);
+     await CreateUserDocumentFromAuth(user);
   };
   return (
     <div className="form-group">

@@ -10,7 +10,7 @@ import { cartContext } from "../../context/cart.context";
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
-  const { isCartOpen } = useContext(cartContext);
+  const {isCartOpen} = useContext(cartContext);
   const handleSignOut = async () => {
     await userSignOut();
   };
@@ -34,9 +34,9 @@ const Navigation = () => {
               Sign In
             </Link>
           )}
-          <CartIcon />
+            <CartIcon />
         </div>
-        {isCartOpen && <CartDropdown />}
+        {isCartOpen && <CartDropdown/>}
       </div>
       <Outlet />
     </Fragment>

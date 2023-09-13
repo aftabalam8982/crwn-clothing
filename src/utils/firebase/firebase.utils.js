@@ -91,10 +91,24 @@ export const CreateUserDocumentFromAuth = async (userAuth, additionalData) => {
   return userDocRef;
 };
 
-export const  createAuthUserWithEmailAndPassword = async(email, password) => {
-  if(!email || !password) return;
+// export const  createAuthUserWithEmailAndPassword = async(email, password) => {
+//   if(!email || !password) return;
 
-  return await createUserWithEmailAndPassword(auth, email, password);
+//   return await createUserWithEmailAndPassword(auth, email, password);
+// };
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  try {
+    if (!email || !password) {
+      throw new Error("Email and password are required.");
+    }
+
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    return user;
+  } catch (error) {
+    throw error; // Re-throw the error for further handling in the calling code
+  }
 };
 
 export const  signInAuthUserWithEmailAndPassword = async(email, password) => {

@@ -1,7 +1,6 @@
 # project hosted on Netlify, find below link.
 
-https://musical-croissant-6ca017.netlify.app
-
+https://deluxe-scone-147af1.netlify.app
 
 # Getting Started with Create React App
 

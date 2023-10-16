@@ -1,26 +1,20 @@
-import React from 'react'
-import { useContext } from 'react';
-import { CategoriesContext } from '../../context/categories.context';
-import CategoryPreview from '../../components/category-preview/category-preview.component';
-
+import React from "react";
+import CategoryPreview from "../../components/category-preview/category-preview.component";
+import { useSelector } from "react-redux";
+import { selectCategoriesMap } from "../../store/categories/categories.selector";
 
 const CategoriesPreview = () => {
-    const {categoriesMap} = useContext(CategoriesContext)
-    //  console.log(products);
-    return(
-        <div className='categories-preview-container'>
-        {
-            Object.keys(categoriesMap).map(title =>{
-                const products = categoriesMap[title];
-                return (
-                    <CategoryPreview key={title} title={title} products = {products}/>
-                )
-            })
-        }
-        
-        </div>
-        
-    )
-}
+  const categoriesMap = useSelector(selectCategoriesMap);
+  return (
+    <div className="categories-preview-container">
+      {Object.keys(categoriesMap).map((title) => {
+        const products = categoriesMap[title];
+        return (
+          <CategoryPreview key={title} title={title} products={products} />
+        );
+      })}
+    </div>
+  );
+};
 
 export default CategoriesPreview;

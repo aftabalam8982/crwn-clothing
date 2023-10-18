@@ -5,6 +5,7 @@ import { selectCurrentUser } from "../../store/user/user.selector";
 import { useState } from "react";
 import { selectCartTotal } from "../../store/cart/cart.selector";
 import Button from "../button/button-component";
+// import { handler } from "../../../netlify/functions/create-payment-intent";
 const PaymentForm = () => {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const stripe = useStripe();
@@ -14,7 +15,6 @@ const PaymentForm = () => {
 
   const paymentHandler = async (e) => {
     e.preventDefault();
-
     if (!stripe || !elements) {
       return;
     }
@@ -26,7 +26,6 @@ const PaymentForm = () => {
       },
       body: JSON.stringify({ amount: 100 * totalAmount }),
     }).then((res) => res.json());
-
     const {
       paymentIntent: { client_secret },
     } = response;
@@ -54,6 +53,38 @@ const PaymentForm = () => {
         alert("payment sucessful");
       }
     }
+
+    const {
+      paymentIntent: { client_secret },
+    } = response;
+    console.log(client_secret);
+    const paymentResult = await stripe.confirmCardPayment(client_secret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+        billing_details: {
+          name: currentUser ? currentUser && currentUser.diaplayName : "Guest",
+          address: {
+            line1: "flate 25 Dhaka",
+            line2: "bihar india",
+            postal_code: 845418,
+            city: "Dhaka",
+            state: "BR",
+            country: "IN",
+          },
+        },
+      },
+    });
+    setIsProcessingPayment(false);
+    if (paymentResult.error) {
+      console.log("paymentResult error");
+      alert(paymentResult.error.message);
+    } else {
+      if (paymentResult.paymentIntent.status === "succeeded") {
+        console.log("payment sucess error");
+        alert("payment sucessful");
+      }
+    }
+
   };
 
   return (
@@ -66,6 +97,7 @@ const PaymentForm = () => {
           style={{ marginTop: "20px" }}
           buttonType="inverted"
         >
+
           Pay Now
         </Button>
       </div>

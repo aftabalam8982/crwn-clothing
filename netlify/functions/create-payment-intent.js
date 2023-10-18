@@ -1,15 +1,17 @@
 
 require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-console.log(process.env.STRIPE_SECRET_KEY);
 exports.handler = async(event)=>{
 
 try{
    const {amount} = JSON.parse(event.body);
    const paymentIntent = await stripe.paymentIntents.create({
+
+   description:'for card payment testing',
     amount,
-    currency: 'usd',
-    payment_method_types: ['card']
+    currency: 'INR',
+    payment_method_types: ['card'],
+
     
   });
 

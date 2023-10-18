@@ -54,37 +54,6 @@ const PaymentForm = () => {
       }
     }
 
-    const {
-      paymentIntent: { client_secret },
-    } = response;
-    console.log(client_secret);
-    const paymentResult = await stripe.confirmCardPayment(client_secret, {
-      payment_method: {
-        card: elements.getElement(CardElement),
-        billing_details: {
-          name: currentUser ? currentUser && currentUser.diaplayName : "Guest",
-          address: {
-            line1: "flate 25 Dhaka",
-            line2: "bihar india",
-            postal_code: 845418,
-            city: "Dhaka",
-            state: "BR",
-            country: "IN",
-          },
-        },
-      },
-    });
-    setIsProcessingPayment(false);
-    if (paymentResult.error) {
-      console.log("paymentResult error");
-      alert(paymentResult.error.message);
-    } else {
-      if (paymentResult.paymentIntent.status === "succeeded") {
-        console.log("payment sucess error");
-        alert("payment sucessful");
-      }
-    }
-
   };
 
   return (

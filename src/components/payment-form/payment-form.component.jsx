@@ -5,6 +5,7 @@ import { selectCurrentUser } from "../../store/user/user.selector";
 import { useState } from "react";
 import { selectCartTotal } from "../../store/cart/cart.selector";
 import Button from "../button/button-component";
+// import { handler } from "../../../netlify/functions/create-payment-intent";
 const PaymentForm = () => {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const stripe = useStripe();
@@ -28,6 +29,7 @@ const PaymentForm = () => {
       body: JSON.stringify({ amount: 100 * totalAmount }),
     }).then((res) => res.json());
     console.log(response);
+
 
     const {
       paymentIntent: { client_secret },
@@ -59,6 +61,7 @@ const PaymentForm = () => {
         alert("payment sucessful");
       }
     }
+
   };
 
   return (
@@ -66,11 +69,13 @@ const PaymentForm = () => {
       <div className="for-container">
         <h2>Cradit card payment: </h2>
         <CardElement />
+
         <Button
           isLoading={isProcessingPayment}
           style={{ marginTop: "20px" }}
           buttonType="inverted"
         >
+
           Pay Now
         </Button>
       </div>
